@@ -1,3 +1,4 @@
+#!/usr/bin/env python3.8
 import secrets
 import requests
 import subprocess
@@ -19,9 +20,9 @@ if raw_response.status_code == requests.codes.ok:
                 "  • [" + notification["repository"]["name"] + "] " + notification["subject"]["title"])
         title = "There are " + str(n_notifications) + " new notifications:"
         icon = "--icon=/home/miguel/dados/dev/notification-baby-monitor/github_icon_32px.png"
-        arguments = ["notify-send", icon,
+        arguments = ["/usr/bin/notify-send", icon,
                      title, "\n".join(notification_titles)]
-        subprocess.call(arguments)
+        subprocess.Popen(arguments)
     else:
         pass
 else:

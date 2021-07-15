@@ -18,10 +18,13 @@ if raw_response.status_code == requests.codes.ok:
     n_notifications = len(response)
     notification_titles = []
     if n_notifications > 0:
+        if n_notifications == 1:
+            title = "There is a new notification:"
+        else:
+            title = "There are " + str(n_notifications) + " new notifications:"
         for notification in response:
             notification_titles.append(
                 "  • [" + notification["repository"]["name"] + "] " + notification["subject"]["title"])
-        title = "There are " + str(n_notifications) + " new notifications:"
         arguments = ["/usr/bin/notify-send", expire, icon,
                      title, "\n".join(notification_titles)]
         subprocess.Popen(arguments)
